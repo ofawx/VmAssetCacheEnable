@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KernelAndKextPatches</key>
+	<dict>
+		<key>BootPatches</key>
+		<array>
+			<dict>
+				<key>Comment</key>
+				<string>Block sysctl machdep.cpu.features VMM flag</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Find</key>
+				<data>AFZNTQA=</data>
+				<key>Replace</key>
+				<data>AFhYWAA=</data>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
