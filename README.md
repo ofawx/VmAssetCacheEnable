@@ -26,9 +26,11 @@ Thus, AssetCache runs normally, as if on a real Mac.
 **Note that this procedure has the potential to break your Macinabox install and/or VM. Please have a backup, and read through these instructions before attempting to ensure you are comfortable with the process *before* starting. If you require assistance, please consult the Macinabox support thread.**
 
 Navigate to your Macinabox domain:
+
 `$ cd /mnt/user/domains/MacinaboxCatalina`
 
 Create a mount point for your Clover EFI image, enable NBD, attach the Clover image to an NBD device, and mount the EFI partition to the mount point:
+
 ```
 $ mkdir efi_mount
 $ modprobe nbd max_part=8
@@ -37,8 +39,11 @@ $ mount /dev/nbd0p1 efi_mount/
 ```
 
 You now want to edit `efi_mount/EFI/CLOVER/config.plist`. I strongly recommend making a backup first:
+
 `$ cp efi_mount/EFI/CLOVER/config.plist config.plist.bkp`
+
 If anything goes wrong from here, you can restore your backup:
+
 ```
 $ rm efi_mount/EFI/CLOVER/config.plist
 $ cp config.plist.bkp efi_mount/EFI/CLOVER/config.plist
@@ -47,13 +52,15 @@ $ cp config.plist.bkp efi_mount/EFI/CLOVER/config.plist
 Using a text or plist editor (I like [ProperTree](https://github.com/corpnewt/ProperTree)), into `efi_mount/EFI/CLOVER/config.plist`, copy the contents of `clover.config.plist`, not including the outermost `dict` and `plist` tags. You want to add `KernelAndKextPatches`, `KernelToPatch`, and patch element without damaging the rest of the file. Save and quit your editor.
 
 Finally we can unmount the image:
+
 `$ umount efi_mount`
 
-To check you installed the patch okay, boot up your MacinaboxVM and in the Clover boot menu, go to `Options > Binaries Patching > Custom Kernel Patches` and ensure that `Block sysctl machdep.cpu.features VMM flag` is present and enabled. If Clover refuses to boot or this entry is not available, try installing the patch again, by mounting the image again and restoring your backup. Double-check you add in the patch correctly.
+To check you installed the patch okay, boot up your MacinaboxVM and in the Clover boot menu, go to `Options > Binaries Patching > Custom Kernel Patches` and ensure that `Block sysctl machdep.cpu.features VMM flag` is present and enabled. If Clover refuses to boot or this entry is not available, try installing the patch again, by mounting the image again and restoring your backup. Double-check you add in the patch correctly on your next attempt.
 
 If all is going well, continue booting the VM, and verify that Content Caching can now be enabled.
 
 Finally, disconnect the NBD device as we do not need it anymore:
+
 ```
 $ qemu-nbd --disconnect /dev/nbd0
 $ rmmod nbd
