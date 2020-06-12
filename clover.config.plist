@@ -4,7 +4,7 @@
 <dict>
 	<key>KernelAndKextPatches</key>
 	<dict>
-		<key>BootPatches</key>
+		<key>KernelToPatch</key>
 		<array>
 			<dict>
 				<key>Comment</key>
