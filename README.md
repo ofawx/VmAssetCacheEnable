@@ -2,16 +2,18 @@
 Kernel patching method to allow enabling AssetCache (Content Caching) on macOS High Sierra and above, when running in a Virtual Machine.
 
 ## Introduction
-Since macOS High Sierra, Apple prevents AssetCache being used on a virtualised machine.
+Since macOS High Sierra, Apple [*"explicitly disallows"*](https://support.apple.com/en-gb/HT207828) AssetCache being used on a virtualised machine.
 
-On an *unpatched* system, executing `$ sysctl -a | grep cpu.features` will list the `VMM` flag as a CPU feature.
+On an *unpatched* VM system, executing:
+* `$ sysctl -a | grep cpu.features` will list the `VMM` flag as a CPU feature, and
+* `$ sysctl -a | grep kern.hv_vmm_present` will return `1` (True).
 
-When AssetCache sees the `VMM` flag at startup, it prevents itself from running.
+When AssetCache sees these values at startup, it prevents itself from running.
 
 ## Solution
 These kernel patches modify the behaviour of sysctl, by replacing the `VMM` string with `XXX`.
 
-On a *patched* system, executing `$ sysctl -a | grep cpu.features` will list an `XXX` flag *instead* of `VMM` as a CPU feature.
+On a *patched* system, executing `$ sysctl -a | grep cpu.features` will list an `XXX` flag *instead* of `VMM` as a CPU feature. Additionally, the `kern.hv_vmm_present` field is renamed to `kern.hv_xxx_present`, so AssetCache cannot find it.
 
 Thus, AssetCache runs normally, as if on a real Mac.
 
