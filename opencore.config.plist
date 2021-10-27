@@ -24,11 +24,39 @@
 				<key>Mask</key>
 				<data></data>
 				<key>MaxKernel</key>
-				<string>20.99.99</string>
+				<string>21.99.99</string>
 				<key>MinKernel</key>
 				<string>17.0.0</string>
 				<key>Replace</key>
 				<data>AFhYWAA=</data>
+				<key>ReplaceMask</key>
+				<data></data>
+				<key>Skip</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>Base</key>
+				<string></string>
+				<key>Comment</key>
+				<string>Block sysctl kern.hv_vmm_present call</string>
+				<key>Count</key>
+				<integer>1</integer>
+				<key>Enabled</key>
+				<true/>
+				<key>Find</key>
+				<data>aHZfdm1tX3ByZXNlbnQ=</data>
+				<key>Identifier</key>
+				<string>kernel</string>
+				<key>Limit</key>
+				<integer>0</integer>
+				<key>Mask</key>
+				<data></data>
+				<key>MaxKernel</key>
+				<string>21.99.99</string>
+				<key>MinKernel</key>
+				<string>17.0.0</string>
+				<key>Replace</key>
+				<data>aHZfeHh4X3ByZXNlbnQ=</data>
 				<key>ReplaceMask</key>
 				<data></data>
 				<key>Skip</key>
