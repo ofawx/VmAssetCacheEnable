@@ -4,7 +4,12 @@ Kernel patching method to allow enabling AssetCache (Content Caching) on macOS H
 ## Introduction
 Since macOS High Sierra, Apple [*"explicitly disallows"*](https://support.apple.com/en-gb/HT207828) AssetCache being used on a virtualised machine.
 
-On an *unpatched* VM system, executing:
+In macOS High Sierra, Mojave and Catalina, on an *unpatched* VM system, executing:
+* `$ sysctl -a | grep cpu.features` will list the `VMM` flag as a CPU feature
+
+When AssetCache sees this value at startup, it prevents itself from running.
+
+In macOS Big Sur and Monterey, on an *unpatched* VM system, executing:
 * `$ sysctl -a | grep cpu.features` will list the `VMM` flag as a CPU feature, and
 * `$ sysctl -a | grep kern.hv_vmm_present` will return `1` (True).
 
@@ -13,7 +18,7 @@ When AssetCache sees these values at startup, it prevents itself from running.
 ## Solution
 These kernel patches modify the behaviour of sysctl, by replacing the `VMM` string with `XXX`.
 
-On a *patched* system, executing `$ sysctl -a | grep cpu.features` will list an `XXX` flag *instead* of `VMM` as a CPU feature. Additionally, the `kern.hv_vmm_present` field is renamed to `kern.hv_xxx_present`, so AssetCache cannot find it.
+On a *patched* system, executing `$ sysctl -a | grep cpu.features` will list an `XXX` flag *instead* of `VMM` as a CPU feature. Additionally, for macOS Big Sur and Monterey, the `kern.hv_vmm_present` field is renamed to `kern.hv_xxx_present`, so AssetCache cannot find it.
 
 Thus, AssetCache runs normally, as if on a real Mac.
 
@@ -67,6 +72,10 @@ Finally, disconnect the NBD device as we do not need it anymore:
 $ qemu-nbd --disconnect /dev/nbd0
 $ rmmod nbd
 ```
+
+## Special notes
+Model network type vmxnet3 is known to cause issues with Apple services.
+It is strongly recommended to set network model type to e1000-82545em for macOS High Sierra, Mojave or Catalina, and virtio or virtio-net for macOS Big Sur and Monterey,
 
 ## Contrib
 Feel free to raise any issues or PRs. Can't guarantee support but happy to try and help.
