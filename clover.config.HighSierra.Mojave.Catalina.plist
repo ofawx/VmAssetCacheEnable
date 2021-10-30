@@ -16,16 +16,6 @@
 				<key>Replace</key>
 				<data>AFhYWAA=</data>
 			</dict>
-			<dict>
-				<key>Comment</key>
-				<string>Block sysctl kern.hv_vmm_present call</string>
-				<key>Disabled</key>
-				<false/>
-				<key>Find</key>
-				<data>aHZfdm1tX3ByZXNlbnQ=</data>
-				<key>Replace</key>
-				<data>aHZfeHh4X3ByZXNlbnQ=</data>
-			</dict>
 		</array>
 	</dict>
 </dict>
