@@ -1,3 +1,10 @@
+Archived 2022-01-27
+
+This kernel patch is no longer recommended due to [deleterious side effects](https://github.com/ofawx/VmAssetCacheEnable/issues/6).
+
+Identical functionality (without side effects) is implemented for macOS Big Sur and greater in [acidanthera/RestrictEvents](https://github.com/acidanthera/FeatureUnlock) from version 1.0.5 [thanks to @khronokernel](https://github.com/acidanthera/RestrictEvents/pull/5)
+
+
 # VmAssetCacheEnable
 Kernel patching method to allow enabling AssetCache (Content Caching) on macOS High Sierra and above, when running in a Virtual Machine.
 
